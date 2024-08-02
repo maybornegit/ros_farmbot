@@ -1,0 +1,4 @@
+<launch>
+        <node pkg="ros_farmbot" exec="init" name="init" namespace="farmbot"/>
+        <node pkg="ros_farmbot" exec="ui" name="ui" namespace="farmbot"/>
+</launch>

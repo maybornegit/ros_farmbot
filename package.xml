@@ -6,6 +6,8 @@
   <description>TODO: Package description</description>
   <maintainer email="morgan8211@gmail.com">frc-ag-2</maintainer>
   <license>TODO: License declaration</license>
+  
+  <exec_depend>ros2launch</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
