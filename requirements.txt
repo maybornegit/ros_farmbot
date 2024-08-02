@@ -1,0 +1,6 @@
+aranet4==2.3.4
+farmbot==1.1.0
+matplotlib==3.9.1
+opencv-python==4.10.0.84
+pandas==2.2.2
+pyrealsense2==2.55.1.6486

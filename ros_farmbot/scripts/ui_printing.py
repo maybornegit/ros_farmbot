@@ -1,13 +1,19 @@
-import cv2
+import cv2, os
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime as dt
 import pandas as pd
 
+ui_var = '/ui_update_variables.csv'
+sensor = '/sensor-readings.csv'
+rgbd = '/rgbd_frames'
+placeholders = '/placeholders'
+my_dir = os.path.expanduser("~/ros_farmbot_data")
+
 # Necessary inputs: timecodes of prev batch, current date, current ee loc, gopro photo
 # Outputs: The complete image array with the concatenated pieces
 def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
-    img_base = '/home/frc-ag-2/Downloads/ros_test_non_py'
+    img_base = my_dir+placeholder
 
     img_locations = ['/previous_rgb_placeholder.jpg','/raster_seq_placeholder.jpg','/go_pro_placeholder.jpg','/time_Series_placeholder.jpg']
 
@@ -29,7 +35,7 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             im_list = []
             for i in range(len(timecode_batch)):
                 if timecode_batch[i] != None and timecode_batch[i] != '':
-                    pathloc = '/home/frc-ag-2/Downloads/ros_test_non_py/rgbd_frames/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*5)+ '.npy'
+                    pathloc = my_dir+rgbd+'/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*5)+ '.npy'
                     picture_npy = np.load(pathloc)[:,:,:3].astype(np.uint8)
                     im = cv2.cvtColor(picture_npy, cv2.COLOR_BGR2RGB)
                     im = cv2.resize(im, (192,135),interpolation=cv2.INTER_CUBIC)                 
@@ -92,7 +98,7 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             #initialtime_test = dt.datetime(2024,2,4)
             #date = dt.datetime(date.year, date.month, date.day)
             lasthour = dt.timedelta(hours=1)
-            data = pd.read_csv('/home/frc-ag-2/Downloads/ros_test_non_py/sensor-readings.csv')
+            data = pd.read_csv(my_dir+sensor)
             #print(csv_indxs)
             if csv_indxs == None:
                 idxs = []

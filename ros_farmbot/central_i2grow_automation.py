@@ -1,12 +1,27 @@
 import sys
-sys.path.append("/home/frc-ag-2/ros2_ws/src/ros_farmbot/ros_farmbot")
+import time, csv, subprocess,os
 
-from opencv_rgbd_framegrab import *
-from measure_env import *
-import time, csv
+ui_var = '/ui_update_variables.csv'
+sensor = '/sensor-readings.csv'
+my_dir = os.path.expanduser("~/ros_farmbot_data")
+if not os.path.exists(my_dir):
+   os.mkdir(my_dir)
+   os.mkdir(my_dir+'/rgbd_frames')
+if not os.path.exists(my_dir+ui_var):
+   with open(my_dir+ui_var, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
+if not os.path.exists(my_dir+sensor):
+   with open(my_dir+sensor, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
+
 from farmbot import Farmbot
 import threading
 import datetime as dt
+
+from .scripts.opencv_rgbd_framegrab import *
+from .scripts.measure_env import *
 
 '''
 def display_image():
@@ -16,7 +31,7 @@ def display_image():
 '''
 
 def ui_update_writer(timecode_batch,ee_loc, prev_imagebatch, iter_):
-    in_path = '/home/frc-ag-2/Downloads/ros_test_non_py/ui_update_variables.csv'
+    in_path = my_dir+ui_var
     with open(in_path, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(timecode_batch)
@@ -38,7 +53,6 @@ class MyHandler:
     def on_change(self, bot, state):
         global position, kill, pin_read
         position = (state['location_data']['position']['x'],state['location_data']['position']['y'],state['location_data']['position']['z'])
-        pin_read = state["pins"]['18']['value']
         #print(position, kill)
         if kill:
             sys.exit()
@@ -86,7 +100,8 @@ def main():
     # Initialize Farmbot and UI
     timeimages_batch = []
     previmage_batch = []
-    ui_update_writer(timeimages_batch,position, previmage_batch, 0)
+    if position != '':
+        ui_update_writer(timeimages_batch,position, previmage_batch, 0)
     fb = Farmbot.login("kantorlab.farmbot@gmail.com", "field123")
     handler = MyHandler(fb)
     t1 = threading.Thread(target=fb.connect, name="foo", args=[handler])
@@ -103,7 +118,7 @@ def main():
     print("ENTERING CONTINUOUS CONTROL:")
     while True:
         # If it's time for the next sequence ~ note sequence takes about 15 minutes each
-        if time.time() - time_ui > 10:
+        if time.time() - time_ui > 10 and position != '':
             ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
             time_ui = time.time()
 
@@ -123,40 +138,45 @@ def main():
             iter_ += 1
             previmage_batch = timeimages_batch[:]
             timeimages_batch = []
-            if time.time() - time_ui > 10:
+            if time.time() - time_ui > 10 and position != '':
                 ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
                 time_ui = time.time()
         
         #Is it at a picture location? If so take picture. If not and its time, take measurements.
-        plug_near_X = position[0] <= 1.03*locs[current_loc][0] and position[0] >= 0.97*locs[current_loc][0]
-        plug_near_Y = position[1] <= 1.03*locs[current_loc][1] and position[1] >= 0.97*locs[current_loc][1]
-        if plug_near_X and plug_near_Y and (time.time() - time_image > 6.5) and (time.time() - t > 20):
-            print("position reached:",current_loc)
-            time_image = time.time()
-            timestamp = pull_depth_image(current_loc)
-            if timestamp != None:
-                print('IMAGE TAKEN')
-            else:
-                print('IMAGE ERROR')
-            if current_loc % 5 == 0:
-                timeimages_batch.append(timestamp)
-            
-            if time.time() - time_ui > 10:
-                ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
-                time_ui = time.time()
-            current_loc += 1
-        elif time.time() - time_envreadings > 60:
-            with open('/home/frc-ag-2/Downloads/ros_test_non_py/sensor-readings.csv', 'a', newline='') as file:
-                writer = csv.writer(file)
-                try:
-                    m, _ = measure_env()
-                    if len(m) != 0:
-                        writer.writerow(m[0:5])
-                        print('MEASUREMENT TAKEN')
-                except:
-                    pass
-            time_envreadings = time.time()
-    return None
-	
+        try:
+            plug_near_X = position[0] <= 1.03*locs[current_loc][0] and position[0] >= 0.97*locs[current_loc][0]
+            plug_near_Y = position[1] <= 1.03*locs[current_loc][1] and position[1] >= 0.97*locs[current_loc][1]
+            if plug_near_X and plug_near_Y and (time.time() - time_image > 6.5) and (time.time() - t > 20):
+                print("position reached:",current_loc)
+                time_image = time.time()
+                timestamp = pull_depth_image(current_loc)
+                if timestamp != None:
+                    print('IMAGE TAKEN')
+                else:
+                    print('IMAGE ERROR')
+                if current_loc % 5 == 0:
+                    timeimages_batch.append(timestamp)
+
+                if time.time() - time_ui > 10 and position != '':
+                    ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
+                    time_ui = time.time()
+                current_loc += 1
+            elif time.time() - time_envreadings > 60:
+                with open(my_dir+sensor, 'a', newline='') as file:
+                    writer = csv.writer(file)
+                    try:
+                        m, _ = measure_env()
+                        if len(m) != 0:
+                            writer.writerow(m[0:5])
+                            print('MEASUREMENT TAKEN')
+                    except:
+                        pass
+                time_envreadings = time.time()
+        except:
+            print('Position Error', (time.time() - t)/60)
+            time.sleep(10)
+            pass
+        return None
+
 if __name__ == '__main__':
-	main()
+    main()

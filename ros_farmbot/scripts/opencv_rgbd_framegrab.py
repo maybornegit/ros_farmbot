@@ -8,8 +8,25 @@
 import pyrealsense2 as rs
 import numpy as np
 import cv2
-import time
+import time, os
 
+ui_var = '/ui_update_variables.csv'
+sensor = '/sensor-readings.csv'
+rgbd = '/rgbd_frames'
+placeholders = '/placeholders'
+my_dir = os.path.expanduser("~/ros_farmbot_data")
+if not os.path.exists(my_dir):
+   os.mkdir(my_dir)
+   os.mkdir(my_dir+rgbd)
+if not os.path.exists(my_dir+ui_var):
+   with open(my_dir+ui_var, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
+if not os.path.exists(my_dir+sensor):
+   with open(my_dir+sensor, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
+      
 # Configure depth and color streams
 pipeline = rs.pipeline()
 config = rs.config()
@@ -86,7 +103,7 @@ def pull_depth_image(current_loc):
         # np.savetxt('/home/kantor-lab/Documents/i2grow_central_computer/rgbd_frames/depth-image-'+f'{timestamp}'+'_'+f'{current_loc}'+'.csv',depth_image, delimiter=',')
         # print(f'{timestamp}'+' : Depth Image Saved' )
 
-        np.save('/home/frc-ag-2/Downloads/ros_test_non_py/rgbd_frames/rgbd-image-'+f'{timestamp}'+'_'+f'{current_loc}'+'.npy',rgbd_frame)
+        np.save(my_dir+rgbd+'/rgbd-image-'+f'{timestamp}'+'_'+f'{current_loc}'+'.npy',rgbd_frame)
         print(f'{timestamp}'+' : RGBD Image Saved' )
         pipeline.stop()
 

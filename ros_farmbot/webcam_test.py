@@ -1,12 +1,28 @@
 # import the opencv library 
-import cv2, time, csv, sys
+import cv2, time, csv, sys, os
 import datetime as dt
 
-sys.path.append("/home/frc-ag-2/ros2_ws/src/ros_farmbot/ros_farmbot")
-from ui_printing import *
+from .scripts.ui_printing import *
+
+ui_var = '/ui_update_variables.csv'
+sensor = '/sensor-readings.csv'
+rgbd = '/rgbd_frames'
+placeholders = '/placeholders'
+my_dir = os.path.expanduser("~/ros_farmbot_data")
+if not os.path.exists(my_dir):
+   os.mkdir(my_dir)
+   os.mkdir(my_dir+'/rgbd_frames')
+if not os.path.exists(my_dir+ui_var):
+   with open(my_dir+ui_var, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
+if not os.path.exists(my_dir+sensor):
+   with open(my_dir+sensor, 'w') as file:
+      csv_writer = csv.writer(file)
+      csv_writer.writerow(['Test','Test','Test', 'Test'])
 
 def read_ui_updates():
-	in_path = '/home/frc-ag-2/Downloads/ros_test_non_py/ui_update_variables.csv'
+	in_path = my_dir+ui_var
 	try:
 		with open(in_path, 'r', newline='') as file:
 			reader = csv.reader(file)
