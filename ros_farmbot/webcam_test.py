@@ -19,7 +19,7 @@ if not os.path.exists(my_dir+ui_var):
 if not os.path.exists(my_dir+sensor):
    with open(my_dir+sensor, 'w') as file:
       csv_writer = csv.writer(file)
-      csv_writer.writerow(['Test','Test','Test', 'Test'])
+      csv_writer.writerow(['Timestamp','Temperature [in degrees C]','Relative Humidity [%]','CO2 [in ppm]','Pressure [in hPa]'])
 
 def read_ui_updates():
 	in_path = my_dir+ui_var
@@ -28,17 +28,24 @@ def read_ui_updates():
 			reader = csv.reader(file)
 			read_list = list(reader)
 			timeimages_batch = read_list[0]
-			position = (float(read_list[1][0]),float(read_list[1][1]),float(read_list[1][2]))
-			prev_images = read_list[2]
+			if read_list[1][0] != '':
+				position = (float(read_list[1][0]),float(read_list[1][1]),float(read_list[1][2]))
+				prev_images = read_list[2]
+			else:
+				raise ValueError
 			iter_ = int(read_list[3][0])
 	except:
-		time.sleep(1)
+		time.sleep(10)
 		with open(in_path, 'r', newline='') as file:
 			reader = csv.reader(file)
 			read_list = list(reader)
 			timeimages_batch = read_list[0]
-			position = (float(read_list[1][0]),float(read_list[1][1]),float(read_list[1][2]))
-			prev_images = read_list[2]
+			if read_list[1][0] != '':
+				position = (float(read_list[1][0]),float(read_list[1][1]),float(read_list[1][2]))
+				prev_images = read_list[2]
+			else:
+				position = None
+				prev_images = None
 			iter_ = read_list[3][0]
 
 	return timeimages_batch, position, prev_images, iter_
@@ -61,7 +68,7 @@ def display_update(time_ui, csv_timecodes,fullimage,override=False):
 def main():
 	# define a video capture object 
 	
-	vid = cv2.VideoCapture(8)
+	vid = cv2.VideoCapture(6)
 	time_ui = time.time()
 	fullimage, csv_timecodes,time_ui = display_update(time_ui,None,None, override=True)
 	time_restart = time.time()

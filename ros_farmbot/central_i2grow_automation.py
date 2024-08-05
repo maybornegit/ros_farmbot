@@ -14,7 +14,7 @@ if not os.path.exists(my_dir+ui_var):
 if not os.path.exists(my_dir+sensor):
    with open(my_dir+sensor, 'w') as file:
       csv_writer = csv.writer(file)
-      csv_writer.writerow(['Test','Test','Test', 'Test'])
+      csv_writer.writerow(['Timestamp','Temperature [in degrees C]','Relative Humidity [%]','CO2 [in ppm]','Pressure [in hPa]'])
 
 from farmbot import Farmbot
 import threading
@@ -117,7 +117,7 @@ def main():
     # Enter Continuous While Loop
     print("ENTERING CONTINUOUS CONTROL:")
     while True:
-        # If it's time for the next sequence ~ note sequence takes about 15 minutes each
+        # If it's time for the next sequence ~ note sequence takes about 20 minutes each
         if time.time() - time_ui > 10 and position != '':
             ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
             time_ui = time.time()
@@ -176,7 +176,7 @@ def main():
             print('Position Error', (time.time() - t)/60)
             time.sleep(10)
             pass
-        return None
+    return None
 
 if __name__ == '__main__':
     main()

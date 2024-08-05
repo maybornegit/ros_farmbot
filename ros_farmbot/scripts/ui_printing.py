@@ -13,7 +13,7 @@ my_dir = os.path.expanduser("~/ros_farmbot_data")
 # Necessary inputs: timecodes of prev batch, current date, current ee loc, gopro photo
 # Outputs: The complete image array with the concatenated pieces
 def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
-    img_base = my_dir+placeholder
+    img_base = my_dir+placeholders
 
     img_locations = ['/previous_rgb_placeholder.jpg','/raster_seq_placeholder.jpg','/go_pro_placeholder.jpg','/time_Series_placeholder.jpg']
 
