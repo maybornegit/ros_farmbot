@@ -3,7 +3,7 @@
 ## 1. Overview
 
 ### 1.1 Description
-This is the foundation for the ROS package used to operate and automate the I2GROW-Oasis prototype. After installing this package into your ROS environment with the requisite equipment and some other localization requirements, a FarmBot should be capable of autonomously photographing specific coordinates, as well as providing a user interface for live updates.
+This is the foundation for the ROS package used to operate and automate the I2GROW-Oasis prototype. After installing this package into your ROS environment with the requisite equipment and some other localization requirements, the FarmBot should be capable of autonomously photographing specific coordinates - as well as providing a user interface for live updates.
 
 ### 1.2 Hardware Utilized
 - Webcam: Brio 100
@@ -19,13 +19,13 @@ This is the foundation for the ROS package used to operate and automate the I2GR
 
 ## 2. 🛠️ Installation
 
-1. Ensure that the equipment above is utilized or some parts of the package may throw errors. (If you are not using Ubuntu 22.04, any ROS2 distribution should work, although they are untested.)
+1. Ensure that the equipment above is utilized, or some parts of the package may throw errors. (If you are not using Ubuntu 22.04, any ROS2 distribution should work, although they are untested.)
 
 2. For the installation of software requirements - 
-- First, install the necessary ROS2 distribution (examples given will be based on Humble distribution, but changes will be noted) and build a ROS workspace for necessary packages.
+- First, install the necessary ROS2 distribution (examples given will be based on Humble distribution, but change the 'humble' in the source commands to your chosen distribution) and build a ROS workspace for necessary packages.
 - [ROS2 Installation Instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 - [Setting Up ROS2 Workspace](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html)
-- Clone this repository inside the src file in the ROS2 workspace. The preferred method of doing this is making an empty directory inside src directory named 'ros_farmbot' and running the git clone command after git initialization.
+- Clone this repository inside the src file in the ROS2 workspace. The preferred method of doing this is making an empty directory inside the src directory named 'ros_farmbot' and running the git clone command after git initialization.
 
 ```
 cd ~/ros2_ws/src/ros_farmbot
@@ -37,13 +37,13 @@ git clone https://github.com/maybornegit/ros_farmbot.git
 ```
 pip install -r /path/to/requirements.txt
 ```
-- Test that the package was download successfully by running 'colcon build' and ensuring no stderrors. Run:
+- Test that the package was downloaded successfully by running 'colcon build' and ensuring no stderrors. Run:
 ```
 cd ~/ros2_ws
 colcon build
 ```
 
-- Lastly, try sourcing the bash files and running a running a ROS node to initialize the '~/ros_farmbot_data' directory in your local home (disconnect from equipment and expect errors). Please copy the 'placeholders' folder in this package into that new directory. Run the initial node by:
+- Lastly, try sourcing the bash files and running a ROS node to initialize the '~/ros_farmbot_data' directory in your local home (disconnect from equipment and expect errors). Please copy the 'placeholders' folder in this package into that new directory. Run the initial node by:
 ```
 cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
@@ -53,7 +53,7 @@ ros2 run ros_farmbot init
 
 ## 3 Executing the Package
 
-There are two options given for running the package (also option 1 has only been tried at this time): two terminals with separate ROS nodes or a combined launch file.
+There are two options given for running the package (only option 1 has been tested at this time): two terminals with separate ROS nodes or a combined launch file.
 
 ### 3.1 Separate Terminals (tested)
 
@@ -64,7 +64,7 @@ source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 run ros_farmbot init
 ```
-You should see 'ENTERING CONINUOUS CONTROL:' and then the robot should zero its position.
+You should see 'ENTERING CONTINUOUS CONTROL:' and then the robot should zero its position.
 
 
 In your second terminal, run:
