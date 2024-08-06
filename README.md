@@ -97,5 +97,9 @@ This should run both nodes at once, although none of the traditional printed log
 - Environmental Controls (Temperature)
 - Integration of Live Plant Visualization
 
+```
+ros2 bag record -o subset /env/co2 /env/pressure /env/rh /env/temp
+```
+
 
 

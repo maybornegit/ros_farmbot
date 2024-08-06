@@ -3,7 +3,7 @@ import time, csv, subprocess,os
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import Float64MultiArray, Int64
+from std_msgs.msg import Float64MultiArray, Float64
 
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
@@ -107,10 +107,10 @@ def main():
     node_t = rclpy.create_node('publisher_temp')
     node_r = rclpy.create_node('publisher_rh')
     
-    publisher_pressure = node_p.create_publisher(Int64, '/env/pressure', 10)
-    publisher_co2 = node_c.create_publisher(Int64, '/env/co2', 10)
-    publisher_temp = node_t.create_publisher(Int64, '/env/temp', 10)
-    publisher_rh = node_r.create_publisher(Int64, '/env/rh', 10)
+    publisher_pressure = node_p.create_publisher(Float64, '/env/pressure', 10)
+    publisher_co2 = node_c.create_publisher(Float64, '/env/co2', 10)
+    publisher_temp = node_t.create_publisher(Float64, '/env/temp', 10)
+    publisher_rh = node_r.create_publisher(Float64, '/env/rh', 10)
     #publisher_par = self.create_publisher(Float64MultiArray, '/env/par', 10)
     
     
@@ -206,23 +206,24 @@ def main():
                             
                             node_p.get_logger().info('Publishing Environmental Data')
                             ### Create Msg
-                            msg_press = Int64()
-                            msg_co2 = Int64()
-                            msg_temp = Int64()
-                            msg_rh = Int64()
-			    
-			    ### Write Msg
-			    msg_press.data = int64(m[4])
-                            msg_co2.data = int64(m[3])
-                            msg_temp.data = int64(m[1])
-                            msg_rh.data = int64(m[2])
-			    
-			    ### Publish Msg
-			    publisher_pressure.publish(msg_press)
-			    publisher_co2.publish(msg_co2)
-			    publisher_temp.publish(msg_temp)
-			    publisher_rh.publish(msg_rh)
-                    except:
+                            msg_press = Float64()
+                            msg_co2 = Float64()
+                            msg_temp = Float64()
+                            msg_rh = Float64()
+
+                            ### Write Msg
+                            msg_press.data = float(m[4])
+                            msg_co2.data = float(m[3])
+                            msg_temp.data = float(m[1])
+                            msg_rh.data = float(m[2])
+
+                            ### Publish Msg
+                            publisher_pressure.publish(msg_press)
+                            publisher_co2.publish(msg_co2)
+                            publisher_temp.publish(msg_temp)
+                            publisher_rh.publish(msg_rh)
+                    except Exception as error:
+                        print(error)
                         pass
                 time_envreadings = time.time()
         except:

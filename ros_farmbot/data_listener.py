@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import Int64
+from std_msgs.msg import Float64
 
 
 class MinimalSubscriber(Node):
@@ -9,7 +9,7 @@ class MinimalSubscriber(Node):
     def __init__(self):
         super().__init__('minimal_subscriber')
         self.subscription = self.create_subscription(
-            Int64,
+            Float64,
             '/env/temp',
             self.listener_callback,
             10)
