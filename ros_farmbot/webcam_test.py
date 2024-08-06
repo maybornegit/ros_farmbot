@@ -1,6 +1,8 @@
 # import the opencv library 
 import cv2, time, csv, sys, os
 import datetime as dt
+import rclpy
+from rclpy.node import Node
 
 from .scripts.ui_printing import *
 
@@ -53,7 +55,7 @@ def read_ui_updates():
 def display_update(time_ui, csv_timecodes,fullimage,override=False):
 	if time.time() - time_ui > 10 or override:
 		timeimages_batch, position, previmage_batch, iter_ = read_ui_updates()
-
+		
 		print("DISPLAY UPDATE", timeimages_batch)
 		if len(timeimages_batch) == 0 and iter_ == 0:
 			fullimage, csv_timecodes = ui_output(None, dt.datetime.today(), position) #put this env readings
@@ -74,7 +76,9 @@ def main():
 	time_restart = time.time()
 
 	while(True): 
-		
+		rclpy.init(args=None)
+    
+                node_disp = rclpy.create_node('display_logging')
 		# Capture the video frame 
 		# by frame 
 
@@ -92,6 +96,7 @@ def main():
 			break
 
 		fullimage, csv_timecodes, time_ui = display_update(time_ui,csv_timecodes,fullimage)
+		node_disp.get_logger().info('Display Updated.')
 		
 
 	# After the loop release the cap object 
