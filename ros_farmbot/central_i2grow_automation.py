@@ -3,7 +3,7 @@ import time, csv, subprocess,os
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import Float64MultiArray, Float64
+from std_msgs.msg import Float64
 
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
@@ -204,7 +204,7 @@ def main():
                             writer.writerow(m[0:5])
                             print('MEASUREMENT TAKEN') 
                             
-                            node_p.get_logger().info('Publishing Environmental Data')
+                            node_p.get_logger().info('Publishing Environmental Data...')
                             ### Create Msg
                             msg_press = Float64()
                             msg_co2 = Float64()

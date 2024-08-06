@@ -9,6 +9,12 @@ import pyrealsense2 as rs
 import numpy as np
 import cv2
 import time, os
+import rclpy
+from rclpy.node import Node
+
+from std_msgs.msg import Float64MultiArray
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge 
 
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
@@ -58,6 +64,16 @@ else:
 def pull_depth_image(current_loc):
     pipeline = rs.pipeline()
     config = rs.config()
+    
+    rclpy.init(args=None)
+    
+    br = CvBridge()
+    
+    node_rgb = rclpy.create_node('rgbd_image')
+    node_depth = rclpy.create_node('depth_image')
+    
+    publisher_rgb = node_rgb.create_publisher(Image, '/rgbd/color', 10)
+    publisher_depth = node_depth.create_publisher(Float64MultiArray, '/rgbd/rgb', 10)
 
     # Get device product line for setting a supporting resolution
     pipeline_wrapper = rs.pipeline_wrapper(pipeline)
@@ -105,12 +121,27 @@ def pull_depth_image(current_loc):
 
         np.save(my_dir+rgbd+'/rgbd-image-'+f'{timestamp}'+'_'+f'{current_loc}'+'.npy',rgbd_frame)
         print(f'{timestamp}'+' : RGBD Image Saved' )
+        
+        node_rgbd.get_logger().info('Publishing Image...')
+        ### Create Msg
+        msg_rgb = Image()
+        msg_depth = Float64MultiArray()
+
+        ### Write Msg
+        msg_rgb.data = br.cv2_to_imgmsg(color_image)
+        msg_depth.data = depth_image.flatten().tolist()
+
+        ### Publish Msg
+        publisher_rgb.publish(msg_rgb)
+        publisher_depth.publish(msg_depth)
+        
         pipeline.stop()
 
         device.hardware_reset()
     
     except Exception as error:
         try:
+            print(error)
             pipeline.stop()
             #device.hardware_reset()
         except Exception as error_:
