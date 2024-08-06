@@ -1,5 +1,9 @@
 import sys
 import time, csv, subprocess,os
+import rclpy
+from rclpy.node import Node
+
+from std_msgs.msg import Float64MultiArray, Int64
 
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
@@ -23,6 +27,22 @@ import datetime as dt
 from .scripts.opencv_rgbd_framegrab import *
 from .scripts.measure_env import *
 
+class MinimalPublisher(Node):
+
+    def __init__(self):
+        super().__init__('minimal_publisher')
+        
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 0
+
+    def timer_callback(self):
+        msg = Float64MultiArray()
+        msg.data = 'Hello World: %d' % self.i
+        self.publisher_.publish(msg)
+        self.get_logger().info('Publishing: "%s"' % msg.data)
+        self.i += 1
+        
 '''
 def display_image():
     test_window = cv2.namedWindow("code_output", cv2.WINDOW_NORMAL)
@@ -79,7 +99,21 @@ class MyHandler:
 def main():
     global position
     global kill
-
+    
+    rclpy.init(args=None)
+    
+    node_p = rclpy.create_node('publisher_pressure')
+    node_c = rclpy.create_node('publisher_co2')
+    node_t = rclpy.create_node('publisher_temp')
+    node_r = rclpy.create_node('publisher_rh')
+    
+    publisher_pressure = node_p.create_publisher(Int64, '/env/pressure', 10)
+    publisher_co2 = node_c.create_publisher(Int64, '/env/co2', 10)
+    publisher_temp = node_t.create_publisher(Int64, '/env/temp', 10)
+    publisher_rh = node_r.create_publisher(Int64, '/env/rh', 10)
+    #publisher_par = self.create_publisher(Float64MultiArray, '/env/par', 10)
+    
+    
     # Setting up locations of interest
     position = (0,0,0)
     delta_camera_seq = 20
@@ -166,9 +200,28 @@ def main():
                     writer = csv.writer(file)
                     try:
                         m, _ = measure_env()
-                        if len(m) != 0:
+                        if len(m) != 0 and rclpy.ok():
                             writer.writerow(m[0:5])
-                            print('MEASUREMENT TAKEN')
+                            print('MEASUREMENT TAKEN') 
+                            
+                            node_p.get_logger().info('Publishing Environmental Data')
+                            ### Create Msg
+                            msg_press = Int64()
+                            msg_co2 = Int64()
+                            msg_temp = Int64()
+                            msg_rh = Int64()
+			    
+			    ### Write Msg
+			    msg_press.data = int64(m[4])
+                            msg_co2.data = int64(m[3])
+                            msg_temp.data = int64(m[1])
+                            msg_rh.data = int64(m[2])
+			    
+			    ### Publish Msg
+			    publisher_pressure.publish(msg_press)
+			    publisher_co2.publish(msg_co2)
+			    publisher_temp.publish(msg_temp)
+			    publisher_rh.publish(msg_rh)
                     except:
                         pass
                 time_envreadings = time.time()

@@ -23,6 +23,7 @@ setup(
         'console_scripts': [
         	'init = ros_farmbot.central_i2grow_automation:main',
         	'ui = ros_farmbot.webcam_test:main',
+        	'listen = ros_farmbot.data_listener:main',
         ],
     },
 )
