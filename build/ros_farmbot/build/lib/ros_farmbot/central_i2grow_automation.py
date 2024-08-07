@@ -1,13 +1,9 @@
 import sys
-import time, csv, subprocess,os, cv2
-from datetime import datetime
+import time, csv, subprocess,os
 import rclpy
 from rclpy.node import Node
-from rclpy.clock import Clock
 
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
-from std_msgs.msg import Float64,Float64MultiArray
+from std_msgs.msg import Float64MultiArray, Float64
 
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
@@ -105,17 +101,12 @@ def main():
     global kill
     
     rclpy.init(args=None)
-    br = CvBridge()
-
+    
     node_p = rclpy.create_node('publisher_pressure')
     node_c = rclpy.create_node('publisher_co2')
     node_t = rclpy.create_node('publisher_temp')
     node_r = rclpy.create_node('publisher_rh')
-    node_rgb = rclpy.create_node('rgbd_image')
-    node_depth = rclpy.create_node('depth_image')
-
-    publisher_rgb = node_rgb.create_publisher(Image, '/rgbd/color', 10)
-    publisher_depth = node_depth.create_publisher(Float64MultiArray, '/rgbd/depth', 10)
+    
     publisher_pressure = node_p.create_publisher(Float64, '/env/pressure', 10)
     publisher_co2 = node_c.create_publisher(Float64, '/env/co2', 10)
     publisher_temp = node_t.create_publisher(Float64, '/env/temp', 10)
@@ -165,8 +156,7 @@ def main():
             ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
             time_ui = time.time()
 
-        ### Stop when the lighting turns off and only run on the hour
-        if time.time() - t > 60*60 and datetime.now().hour >= 10:
+        if time.time() - t > 30*60:
             print('REINITIALIZE SEQUENCE')
             kill = True
             t1.join()
@@ -187,33 +177,13 @@ def main():
                 time_ui = time.time()
         
         #Is it at a picture location? If so take picture. If not and its time, take measurements.
-        # try:
-        if True:
+        try:
             plug_near_X = position[0] <= 1.03*locs[current_loc][0] and position[0] >= 0.97*locs[current_loc][0]
             plug_near_Y = position[1] <= 1.03*locs[current_loc][1] and position[1] >= 0.97*locs[current_loc][1]
             if plug_near_X and plug_near_Y and (time.time() - time_image > 6.5) and (time.time() - t > 20):
                 print("position reached:",current_loc)
                 time_image = time.time()
-                timestamp, color_image, depth_image = pull_depth_image(current_loc)
-                color_image = color_image.astype(np.uint8)
-                # color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
-                depth_image = np.array(depth_image, dtype=np.float64)
-
-                node_rgb.get_logger().info('Publishing Image...')
-                ### Create Msg
-                msg_depth = Float64MultiArray()
-
-                ### Write Msg
-                msg_rgb = br.cv2_to_imgmsg(color_image, encoding="passthrough")  # Use "bgr8" if the image is in BGR format
-                msg_depth.data = depth_image.flatten().tolist()
-
-                # msg_rgb.header.stamp = node_rgb.get_clock().now().to_msg()
-                # msg_depth.header.stamp = node_depth.get_clock().now().to_msg()
-
-                ### Publish Msg
-                publisher_rgb.publish(msg_rgb)
-                publisher_depth.publish(msg_depth)
-
+                timestamp = pull_depth_image(current_loc)
                 if timestamp != None:
                     print('IMAGE TAKEN')
                 else:
@@ -234,7 +204,7 @@ def main():
                             writer.writerow(m[0:5])
                             print('MEASUREMENT TAKEN') 
                             
-                            node_p.get_logger().info('Publishing Environmental Data...')
+                            node_p.get_logger().info('Publishing Environmental Data')
                             ### Create Msg
                             msg_press = Float64()
                             msg_co2 = Float64()
@@ -247,11 +217,6 @@ def main():
                             msg_temp.data = float(m[1])
                             msg_rh.data = float(m[2])
 
-                            # msg_press.header.stamp = node_p.get_clock().now().to_msg()
-                            # msg_co2.header.stamp = node_c.get_clock().now().to_msg()
-                            # msg_temp.header.stamp = node_t.get_clock().now().to_msg()
-                            # msg_rh.header.stamp = node_r.get_clock().now().to_msg()
-
                             ### Publish Msg
                             publisher_pressure.publish(msg_press)
                             publisher_co2.publish(msg_co2)
@@ -261,10 +226,10 @@ def main():
                         print(error)
                         pass
                 time_envreadings = time.time()
-        # except Exception as error:
-        #     print(error, 'Position Error', (time.time() - t)/60)
-        #     time.sleep(10)
-        #     pass
+        except:
+            print('Position Error', (time.time() - t)/60)
+            time.sleep(10)
+            pass
     return None
 
 if __name__ == '__main__':

@@ -105,11 +105,9 @@ def pull_depth_image(current_loc):
 
         np.save(my_dir+rgbd+'/rgbd-image-'+f'{timestamp}'+'_'+f'{current_loc}'+'.npy',rgbd_frame)
         print(f'{timestamp}'+' : RGBD Image Saved' )
-        
         pipeline.stop()
 
         device.hardware_reset()
-        return timestamp_, color_image, depth_image
     
     except Exception as error:
         try:
@@ -117,14 +115,13 @@ def pull_depth_image(current_loc):
             #device.hardware_reset()
         except Exception as error_:
             print('Failed pipeline close', error_)
-            return None, None, None
 
         #device.hardware_reset()
 
         timestamp_ = None
         print('Failed image', error)
-        return None, None, None
 
+    return timestamp_
 
 #for i in range(10):
 #    pull_depth_image()
