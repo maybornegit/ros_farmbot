@@ -28,6 +28,7 @@ from farmbot import Farmbot
 import threading
 import datetime as dt
 
+from ros_farmbot_msgs.msg import Env 
 from .scripts.opencv_rgbd_framegrab import *
 from .scripts.measure_env import *
 
@@ -107,19 +108,15 @@ def main():
     rclpy.init(args=None)
     br = CvBridge()
 
-    node_p = rclpy.create_node('publisher_pressure')
-    node_c = rclpy.create_node('publisher_co2')
-    node_t = rclpy.create_node('publisher_temp')
-    node_r = rclpy.create_node('publisher_rh')
+    node_env = rclpy.create_node('publisher_env')
     node_rgb = rclpy.create_node('rgbd_image')
     node_depth = rclpy.create_node('depth_image')
+    node_position = rclpy.create_node('position_image')
 
     publisher_rgb = node_rgb.create_publisher(Image, '/rgbd/color', 10)
     publisher_depth = node_depth.create_publisher(Float64MultiArray, '/rgbd/depth', 10)
-    publisher_pressure = node_p.create_publisher(Float64, '/env/pressure', 10)
-    publisher_co2 = node_c.create_publisher(Float64, '/env/co2', 10)
-    publisher_temp = node_t.create_publisher(Float64, '/env/temp', 10)
-    publisher_rh = node_r.create_publisher(Float64, '/env/rh', 10)
+    publisher_env = node_env.create_publisher(Env, '/env/aranet', 10)
+    publisher_pos = node_position.create_publisher(Float64MultiArray, '/position', 10)
     #publisher_par = self.create_publisher(Float64MultiArray, '/env/par', 10)
     
     
@@ -155,12 +152,18 @@ def main():
     time_envreadings = time.time()
     time_image = time.time()
     time_ui = time.time()
+    time_pos = time.time()
     csv_timecodes = None
 
     # Enter Continuous While Loop
     print("ENTERING CONTINUOUS CONTROL:")
     while True:
         # If it's time for the next sequence ~ note sequence takes about 20 minutes each
+        if time.time() - time_pos > 4 and position != '':
+            msg_pos = Float64MultiArray()
+            msg_pos.data = [float(pos) for pos in position]
+            publisher_pos.publish(msg_pos)
+            time_pos = time.time()
         if time.time() - time_ui > 10 and position != '':
             ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
             time_ui = time.time()
@@ -234,29 +237,19 @@ def main():
                             writer.writerow(m[0:5])
                             print('MEASUREMENT TAKEN') 
                             
-                            node_p.get_logger().info('Publishing Environmental Data...')
-                            ### Create Msg
-                            msg_press = Float64()
-                            msg_co2 = Float64()
-                            msg_temp = Float64()
-                            msg_rh = Float64()
+                            ### Declare and Initialize Msg
+                            node_env.get_logger().info('Publishing Environmental Data...')
+                            msg_env = Env()
 
                             ### Write Msg
-                            msg_press.data = float(m[4])
-                            msg_co2.data = float(m[3])
-                            msg_temp.data = float(m[1])
-                            msg_rh.data = float(m[2])
-
-                            # msg_press.header.stamp = node_p.get_clock().now().to_msg()
-                            # msg_co2.header.stamp = node_c.get_clock().now().to_msg()
-                            # msg_temp.header.stamp = node_t.get_clock().now().to_msg()
-                            # msg_rh.header.stamp = node_r.get_clock().now().to_msg()
-
+                            msg_env.pressure = float(m[4])
+                            msg_env.co2 = float(m[3])
+                            msg_env.temp = float(m[1])
+                            msg_env.rh = float(m[2])
+                            msg_env.header.stamp = node_t.get_clock().now().to_msg()
+                            
                             ### Publish Msg
-                            publisher_pressure.publish(msg_press)
-                            publisher_co2.publish(msg_co2)
-                            publisher_temp.publish(msg_temp)
-                            publisher_rh.publish(msg_rh)
+                            publisher_env.publish(msg_env)
                     except Exception as error:
                         print(error)
                         pass
