@@ -10,6 +10,8 @@ from serial import Serial
 from time import sleep
 import struct, time
 import serial.tools.list_ports
+import numpy as np
+from scipy.interpolate import Rbf
 
 GET_VOLT = b'\x55!'
 READ_CALIBRATION = b'\x83!'
@@ -100,11 +102,74 @@ class Quantum:
             return sum(response_list) / len(response_list)
 
         return 0.0
+
+def run_grid_approx(single_meas,single_loc, coords, filename):
+    # Sample Data
+    x_ = [single_loc[0]]
+    y_ = [single_loc[1]]
+    z_ = [single_meas]
+    wgt = [100]
+    file = open(filename, "r")
+    while True:
+        content=file.readline()
+        if not content:
+            break
+
+        count = 0
+        working_txt = ''
+        for i in range(len(content)):
+            if content[i] in ['(', ' ']:
+                pass
+            elif content[i] in [',', ')']:
+                if count == 0:
+                    x_.append(int(working_txt))
+                if count == 1:
+                    y_.append(int(working_txt))
+                if count == 2:
+                    z_.append(int(working_txt))
+                    break
+                count += 1
+                working_txt = ''
+            else:
+                working_txt += content[i]
+
+        if len(content) > 47:
+            weight = 5
+        else:
+            weight = 2
+        wgt.append(weight)
+    file.close()
+
+    x = np.array(x_)  # X coordinates
+    y = np.array(y_)  # Y coordinates
+    z = np.array(z_)  # PAR values
+
+    # Define weights for each point (e.g., based on distance, importance, etc.)
+    weights = np.array(wgt)  # Example weights
+
+    # Create RBF interpolation function with weights
+    rbf = Rbf(x, y, z, function='multiquadric', epsilon=2, smooth=0, weights=weights)
+
+    est_par = []
+    for coordinate in coords:
+        # Define the point to interpolate
+        xi, yi = coordinate[0], coordinate[1]
+
+        # Perform interpolation
+        zi = float(rbf(xi, yi))
+        est_par.append((xi, yi, zi))
+    return est_par
     
 if  __name__ == '__main__':
     ### Change port depending on Linux port
+    file = "/home/frc-ag-2/PycharmProjects/morganWorkspace/grid.txt"
     test_sensor = Quantum()
     while True:
         time.sleep(1)
-        print(test_sensor.get_micromoles())
+        single_meas = float(test_sensor.get_micromoles())
+        single_loc = (665, 375)
+        coords = [(565, 175), (785, 280)]
+        filename = "/home/frc-ag-2/PycharmProjects/morganWorkspace/grid.txt"
+        est_par = run_grid_approx(single_meas, single_loc, coords, filename)
+        print(est_par)
     
