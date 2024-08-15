@@ -1,4 +1,4 @@
-import aranet4, subprocess, time
+import subprocess, time
 
 def measure_env():
     def measure_check(mask, check_char, text, offset, i):

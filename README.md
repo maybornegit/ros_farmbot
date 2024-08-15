@@ -35,7 +35,7 @@ git clone https://github.com/maybornegit/ros_farmbot.git
 
 - Next, deactivating any conda or virtual environment, ensure necessary PyPI packages are installed globally. For this, run:
 ```
-pip install -r /path/to/requirements.txt
+pip install farmbot==1.1.0
 ```
 - Test that the package was downloaded successfully by running 'colcon build' and ensuring no stderrors. Run:
 ```
