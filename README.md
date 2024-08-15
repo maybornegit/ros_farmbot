@@ -99,6 +99,8 @@ This should run both nodes at once, although none of the traditional printed log
 
 ```
 ros2 bag record -o subset /env/co2 /env/pressure /env/rh /env/temp
+
+sudo usermod -a -G dialout $USER  ## USB Serial Communication ~ PAR
 ```
 
 
