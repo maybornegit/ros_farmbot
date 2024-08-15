@@ -31,6 +31,7 @@ import datetime as dt
 from ros_farmbot_msgs.msg import Env 
 from .scripts.opencv_rgbd_framegrab import *
 from .scripts.measure_env import *
+from .scripts.par_sensor_reading import *
 
 class MinimalPublisher(Node):
 
@@ -107,6 +108,7 @@ def main():
     
     rclpy.init(args=None)
     br = CvBridge()
+    test_sensor = Quantum()
 
     node_env = rclpy.create_node('publisher_env')
     node_rgb = rclpy.create_node('rgbd_image')
@@ -233,6 +235,10 @@ def main():
                     writer = csv.writer(file)
                     try:
                         m, _ = measure_env()
+                        single_meas = float(par_sensor.get_micromoles())
+                        sensor_loc = (860, 175)
+                        filename_ = '/home/frc-ag-2/ros_farmbot_data/grid.txt'
+                        est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], filename)
                         if len(m) != 0 and rclpy.ok():
                             writer.writerow(m[0:5])
                             print('MEASUREMENT TAKEN') 
@@ -246,6 +252,7 @@ def main():
                             msg_env.co2 = float(m[3])
                             msg_env.temp = float(m[1])
                             msg_env.rh = float(m[2])
+                            msg_env.par = [x[2] for i in range(len(est_par))]
                             msg_env.header.stamp = node_t.get_clock().now().to_msg()
                             
                             ### Publish Msg
