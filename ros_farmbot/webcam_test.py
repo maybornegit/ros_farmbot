@@ -67,11 +67,26 @@ def display_update(time_ui, csv_timecodes,fullimage,override=False):
 
 			time_ui = time.time()
 	return fullimage, csv_timecodes, time_ui
+	
+def find_webcam(id_):
+    device_num = 0
+    if os.path.exists(id_):
+        device_path = os.path.realpath(id_)
+        device_re = re.compile("\/dev\/video(\d+)")
+        info = device_re.match(device_path)
+        if info:
+            device_num = int(info.group(1))
+            #print("Using default video capture device on /dev/video" + str(device_num))
+
+    return device_num
+	
 
 def main():
 	# define a video capture object 
+	id_ = '/dev/v4l/by-id/usb-046d_Brio_101_2350AP046D38-video-index0'
+	device = find_webcam(id_)
 	
-	vid = cv2.VideoCapture(6)
+	vid = cv2.VideoCapture(device)
 	time_ui = time.time()
 	fullimage, csv_timecodes,time_ui = display_update(time_ui,None,None, override=True)
 	time_restart = time.time()

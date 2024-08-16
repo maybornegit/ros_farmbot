@@ -162,7 +162,7 @@ def run_grid_approx(single_meas,single_loc, coords, filename):
     
 if  __name__ == '__main__':
     ### Change port depending on Linux port
-    file = "/home/frc-ag-2/PycharmProjects/morganWorkspace/grid.txt"
+    file = "/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt"
     test_sensor = Quantum()
     while True:
         time.sleep(1)
