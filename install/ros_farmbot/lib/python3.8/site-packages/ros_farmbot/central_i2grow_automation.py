@@ -108,13 +108,12 @@ def main():
     
     rclpy.init(args=None)
     br = CvBridge()
-    par_sensor = Quantum()
+    test_sensor = Quantum()
 
     node_env = rclpy.create_node('publisher_env')
     node_rgb = rclpy.create_node('rgbd_image')
     node_depth = rclpy.create_node('depth_image')
     node_position = rclpy.create_node('position_image')
-    node_t = rclpy.create_node('timing')
 
     publisher_rgb = node_rgb.create_publisher(Image, '/rgbd/color', 10)
     publisher_depth = node_depth.create_publisher(Float64MultiArray, '/rgbd/depth', 10)
@@ -161,40 +160,40 @@ def main():
     # Enter Continuous While Loop
     print("ENTERING CONTINUOUS CONTROL:")
     while True:
-        if position[0] != None:
-            # If it's time for the next sequence ~ note sequence takes about 20 minutes each
-            if time.time() - time_pos > 4:
-                msg_pos = Float64MultiArray()
-                msg_pos.data = [float(pos) for pos in position]
-                publisher_pos.publish(msg_pos)
-                time_pos = time.time()
-            if time.time() - time_ui > 10:
+        # If it's time for the next sequence ~ note sequence takes about 20 minutes each
+        if time.time() - time_pos > 4 and position != '':
+            msg_pos = Float64MultiArray()
+            msg_pos.data = [float(pos) for pos in position]
+            publisher_pos.publish(msg_pos)
+            time_pos = time.time()
+        if time.time() - time_ui > 10 and position != '':
+            ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
+            time_ui = time.time()
+
+        ### Stop when the lighting turns off and only run on the hour
+        if time.time() - t > 60*60 and datetime.now().hour >= 10:
+            print('REINITIALIZE SEQUENCE')
+            kill = True
+            t1.join()
+            time.sleep(5)
+
+            t1 = threading.Thread(target=fb.connect, name="foo", args=[handler])
+            t1.start()
+            kill = False
+            pics = True
+            current_loc = 0
+            t = time.time()
+
+            iter_ += 1
+            previmage_batch = timeimages_batch[:]
+            timeimages_batch = []
+            if time.time() - time_ui > 10 and position != '':
                 ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
                 time_ui = time.time()
-
-            ### Stop when the lighting turns off and only run on the hour
-            if time.time() - t > 5*60*60 and datetime.now().hour >= 10:
-                print('REINITIALIZE SEQUENCE')
-                kill = True
-                t1.join()
-                time.sleep(5)
-
-                t1 = threading.Thread(target=fb.connect, name="foo", args=[handler])
-                t1.start()
-                kill = False
-                pics = True
-                current_loc = 0
-                t = time.time()
-
-                iter_ += 1
-                previmage_batch = timeimages_batch[:]
-                timeimages_batch = []
-                if time.time() - time_ui > 10:
-                    ui_update_writer(timeimages_batch,position, previmage_batch, iter_)
-                    time_ui = time.time()
-
-            #Is it at a picture location? If so take picture. If not and its time, take measurements.
-            # try:
+        
+        #Is it at a picture location? If so take picture. If not and its time, take measurements.
+        # try:
+        if True:
             plug_near_X = position[0] <= 1.03*locs[current_loc][0] and position[0] >= 0.97*locs[current_loc][0]
             plug_near_Y = position[1] <= 1.03*locs[current_loc][1] and position[1] >= 0.97*locs[current_loc][1]
             if plug_near_X and plug_near_Y and (time.time() - time_image > 6.5) and (time.time() - t > 20):
@@ -238,12 +237,12 @@ def main():
                         m, _ = measure_env()
                         single_meas = float(par_sensor.get_micromoles())
                         sensor_loc = (860, 175)
-                        filename_ = '/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt'
-                        est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], filename_)
+                        filename_ = '/home/frc-ag-2/ros_farmbot_data/grid.txt'
+                        est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], filename)
                         if len(m) != 0 and rclpy.ok():
                             writer.writerow(m[0:5])
-                            print('MEASUREMENT TAKEN')
-
+                            print('MEASUREMENT TAKEN') 
+                            
                             ### Declare and Initialize Msg
                             node_env.get_logger().info('Publishing Environmental Data...')
                             msg_env = Env()
@@ -253,11 +252,9 @@ def main():
                             msg_env.co2 = float(m[3])
                             msg_env.temp = float(m[1])
                             msg_env.rh = float(m[2])
-                            par_msg = Float64MultiArray()
-                            par_msg.data = [x[2] for x in est_par]
-                            msg_env.par = par_msg
-                            msg_env.header.stamp = node_env.get_clock().now().to_msg()
-
+                            msg_env.par = [x[2] for i in range(len(est_par))]
+                            msg_env.header.stamp = node_t.get_clock().now().to_msg()
+                            
                             ### Publish Msg
                             publisher_env.publish(msg_env)
                     except Exception as error:

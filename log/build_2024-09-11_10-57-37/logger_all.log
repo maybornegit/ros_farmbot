@@ -1,0 +1,89 @@
+[0.236s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.236s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fe0fd49bd30>>, merge_install=False, metas=['./colcon.meta'], mixin=None, mixin_files=None, mixin_verb=('build',), packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=16, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fe0fd49bd30>, verb_name='build', verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7fe0fd3eec40>)
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.365s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.365s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/frc-ag-2/ros2_ws/src/ros_farmbot'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.365s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.378s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_python' and name 'ros_farmbot'
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.394s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.394s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.397s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 256 installed packages in /opt/ros/foxy
+[0.398s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_target' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_clean_cache' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_clean_first' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'cmake_force_configure' from command line to 'False'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'ament_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'catkin_cmake_args' from command line to 'None'
+[0.449s] Level 5:colcon.colcon_core.verb:set package 'ros_farmbot' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.450s] DEBUG:colcon.colcon_core.verb:Building package 'ros_farmbot' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot', 'merge_install': False, 'path': '/home/frc-ag-2/ros2_ws/src/ros_farmbot', 'symlink_install': False, 'test_result_base': None}
+[0.450s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.450s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.450s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/frc-ag-2/ros2_ws/src/ros_farmbot' with build type 'ament_python'
+[0.450s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros_farmbot', 'ament_prefix_path')
+[0.454s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.454s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/ament_prefix_path.ps1'
+[0.455s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/ament_prefix_path.dsv'
+[0.455s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/ament_prefix_path.sh'
+[0.456s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.456s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.650s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/frc-ag-2/ros2_ws/src/ros_farmbot'
+[0.651s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.651s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.988s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot': CONDA_PROMPT_MODIFIER=(i2grow-env) PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data
+[1.231s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot' returned '0': CONDA_PROMPT_MODIFIER=(i2grow-env) PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot' for CMake module files
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot' for CMake config files
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/bin'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/pkgconfig/ros_farmbot.pc'
+[1.236s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages'
+[1.236s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros_farmbot', 'pythonpath')
+[1.236s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/pythonpath.ps1'
+[1.237s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/pythonpath.dsv'
+[1.237s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/hook/pythonpath.sh'
+[1.237s] Level 1:colcon.colcon_core.environment:checking '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/bin'
+[1.237s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros_farmbot)
+[1.238s] INFO:colcon.colcon_core.shell:Creating package script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/package.ps1'
+[1.238s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/package.dsv'
+[1.239s] INFO:colcon.colcon_core.shell:Creating package script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/package.sh'
+[1.239s] INFO:colcon.colcon_core.shell:Creating package script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/package.bash'
+[1.240s] INFO:colcon.colcon_core.shell:Creating package script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/package.zsh'
+[1.241s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/colcon-core/packages/ros_farmbot)
+[1.241s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.241s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.241s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.241s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.246s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.246s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.246s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.258s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.258s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/local_setup.ps1'
+[1.259s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/_local_setup_util_ps1.py'
+[1.260s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/setup.ps1'
+[1.261s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/local_setup.sh'
+[1.262s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/_local_setup_util_sh.py'
+[1.262s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/setup.sh'
+[1.263s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/local_setup.bash'
+[1.263s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/setup.bash'
+[1.264s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/local_setup.zsh'
+[1.264s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/setup.zsh'

@@ -153,7 +153,7 @@ def run_grid_approx(single_meas,single_loc, coords, filename):
     est_par = []
     for coordinate in coords:
         # Define the point to interpolate
-        xi, yi = float(coordinate[0]), float(coordinate[1])
+        xi, yi = coordinate[0], coordinate[1]
 
         # Perform interpolation
         zi = float(rbf(xi, yi))

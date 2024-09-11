@@ -1,0 +1,64 @@
+[0.537s] Invoking command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot': CONDA_PROMPT_MODIFIER=(i2grow-env) PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data
+[0.693s] running egg_info
+[0.693s] creating build/ros_farmbot/ros_farmbot.egg-info
+[0.694s] writing build/ros_farmbot/ros_farmbot.egg-info/PKG-INFO
+[0.694s] writing dependency_links to build/ros_farmbot/ros_farmbot.egg-info/dependency_links.txt
+[0.694s] writing entry points to build/ros_farmbot/ros_farmbot.egg-info/entry_points.txt
+[0.694s] writing requirements to build/ros_farmbot/ros_farmbot.egg-info/requires.txt
+[0.694s] writing top-level names to build/ros_farmbot/ros_farmbot.egg-info/top_level.txt
+[0.706s] writing manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+[0.744s] reading manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+[0.744s] writing manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+[0.744s] running build
+[0.744s] running build_py
+[0.745s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build
+[0.745s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib
+[0.745s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+[0.745s] copying ros_farmbot/webcam_test.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+[0.745s] copying ros_farmbot/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+[0.745s] copying ros_farmbot/central_i2grow_automation.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+[0.745s] copying ros_farmbot/data_listener.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+[0.745s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.745s] copying ros_farmbot/scripts/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.745s] copying ros_farmbot/scripts/par_sensor_reading.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.745s] copying ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.745s] copying ros_farmbot/scripts/opencv_rgbd_framegrab.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.746s] copying ros_farmbot/scripts/measure_env.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.746s] running install
+[0.746s] running install_lib
+[0.747s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot
+[0.747s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.747s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.747s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/par_sensor_reading.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/opencv_rgbd_framegrab.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/measure_env.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/webcam_test.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/central_i2grow_automation.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot
+[0.748s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/data_listener.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot
+[0.748s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts/__init__.py to __init__.cpython-38.pyc
+[0.749s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts/par_sensor_reading.py to par_sensor_reading.cpython-38.pyc
+[0.750s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts/ui_printing.py to ui_printing.cpython-38.pyc
+[0.751s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts/opencv_rgbd_framegrab.py to opencv_rgbd_framegrab.cpython-38.pyc
+[0.751s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/scripts/measure_env.py to measure_env.cpython-38.pyc
+[0.752s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/webcam_test.py to webcam_test.cpython-38.pyc
+[0.753s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/__init__.py to __init__.cpython-38.pyc
+[0.753s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/central_i2grow_automation.py to central_i2grow_automation.cpython-38.pyc
+[0.754s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot/data_listener.py to data_listener.cpython-38.pyc
+[0.754s] running install_data
+[0.754s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ament_index
+[0.755s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ament_index/resource_index
+[0.755s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ament_index/resource_index/packages
+[0.755s] copying resource/ros_farmbot -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ament_index/resource_index/packages
+[0.755s] copying package.xml -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot
+[0.755s] creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/launch
+[0.755s] copying launch/basic.launch -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/launch
+[0.755s] running install_egg_info
+[0.756s] Copying build/ros_farmbot/ros_farmbot.egg-info to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages/ros_farmbot-0.0.0-py3.8.egg-info
+[0.757s] running install_scripts
+[0.768s] Installing init script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.768s] Installing listen script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.768s] Installing ui script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.769s] writing list of installed files to '/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log'
+[0.780s] Invoked command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot' returned '0': CONDA_PROMPT_MODIFIER=(i2grow-env) PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data

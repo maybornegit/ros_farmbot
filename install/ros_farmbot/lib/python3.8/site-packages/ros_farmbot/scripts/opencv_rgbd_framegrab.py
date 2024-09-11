@@ -46,8 +46,8 @@ for s in device.sensors:
 #    print("The demo requires Depth camera with Color sensor")
 #    exit(0)
 
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 15)
+config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 15)
 # Start streaming
 
 def pull_depth_image(current_loc):
@@ -69,8 +69,8 @@ def pull_depth_image(current_loc):
     #    print("The demo requires Depth camera with Color sensor")
     #    exit(0)
 
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+    config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 15)
+    config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 15)
     try:
         pipeline.start(config)
         frames = pipeline.wait_for_frames()
@@ -82,7 +82,7 @@ def pull_depth_image(current_loc):
             return None
 
         # Convert images to numpy arrays
-        depth_image = np.asanyarray(depth_frame.get_data()).reshape((480, 640, 1))
+        depth_image = np.asanyarray(depth_frame.get_data()).reshape((720, 1280, 1))
         color_image = np.asanyarray(color_frame.get_data())
 
         # print(depth_image.shape, color_image.shape)
