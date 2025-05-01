@@ -162,14 +162,13 @@ def run_grid_approx(single_meas,single_loc, coords, filename):
     
 if  __name__ == '__main__':
     ### Change port depending on Linux port
-    file = "/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt"
+    grid_file = "/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt"
     test_sensor = Quantum()
     while True:
         time.sleep(1)
-        single_meas = float(test_sensor.get_micromoles())
-        single_loc = (665, 375)
-        coords = [(565, 175), (785, 280)]
-        filename = "/home/frc-ag-2/PycharmProjects/morganWorkspace/grid.txt"
-        est_par = run_grid_approx(single_meas, single_loc, coords, filename)
+        single_meas = 359
+        single_loc = (885, 175)
+        coords = [(585, -50), (980, 775), (980, -50), (1185, -50),(1185,775)]
+        est_par = run_grid_approx(single_meas, single_loc, coords, file)
         print(est_par)
     

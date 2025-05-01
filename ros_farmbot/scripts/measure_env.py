@@ -1,5 +1,13 @@
 import subprocess, time
 
+try:
+    with open(my_dir+'/config.txt') as f:
+        lines = [line for line in f]
+    mac_Address = lines[4][:-1]
+except:
+    print("Need to update config.txt file")
+    raise NotImplementedError
+
 def measure_env():
     def measure_check(mask, check_char, text, offset, i):
         measure = []

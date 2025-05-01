@@ -4,11 +4,26 @@ import numpy as np
 import datetime as dt
 import pandas as pd
 
+from .cnn_models import *
+from .image_functions import *
+
 ui_var = '/ui_update_variables.csv'
 sensor = '/sensor-readings.csv'
-rgbd = '/rgbd_frames'
+rgbd_loc = '/rgbd_frames'
 placeholders = '/placeholders'
 my_dir = os.path.expanduser("~/ros_farmbot_data")
+
+try:
+    with open(my_dir+'/config.txt') as f:
+        lines = [line for line in f]
+    netwgts_file = lines[5][:-1]
+except:
+    print("Need to update config.txt file")
+    raise NotImplementedError
+
+# netwgts_file = "/home/frc-ag-2/Downloads/old_cnn_results/2025_0203_test-1-effnet-c.pt"
+net = load_net(netwgts_file)
+net.eval()
 
 # Necessary inputs: timecodes of prev batch, current date, current ee loc, gopro photo
 # Outputs: The complete image array with the concatenated pieces
@@ -23,6 +38,10 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
     im4 = cv2.imread(img_base+img_locations[3])
 
     natural_shape = im3.shape[0], im3.shape[1]
+    new_shape1 = 768,675
+    new_shape2 = 312,675
+    new_shape3 = 540,1245
+    new_shape4 = 540,1245
 
     ###### Previous RGB Images
     # Each image is 135 x 192 in a 5x4 grid
@@ -35,44 +54,62 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             im_list = []
             for i in range(len(timecode_batch)):
                 if timecode_batch[i] != None and timecode_batch[i] != '':
-                    pathloc = my_dir+rgbd+'/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*5)+ '.npy'
+                    pathloc = my_dir+rgbd_loc+'/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*3)+ '.npy'
+                    rgbd = prep_image(pathloc)
+                    wgt = get_wgt_estimate(net, rgbd)
+                    if wgt < 1.0:
+                        wgt = 0.0
+                    
                     picture_npy = np.load(pathloc)[:,:,:3].astype(np.uint8)
                     im = cv2.cvtColor(picture_npy, cv2.COLOR_BGR2RGB)
-                    im = cv2.resize(im, (192,135),interpolation=cv2.INTER_CUBIC)                 
+                    im = cv2.rotate(im, cv2.ROTATE_90_COUNTERCLOCKWISE)  ######
+                    im = labelled_image(im, wgt, i)
+                    im = cv2.resize(im, (135,192),interpolation=cv2.INTER_CUBIC)      ######
                     im_list.append(im)
                 else:
-                    im_list.append(np.zeros((135,192,3),np.uint8))
+                    im_list.append(np.zeros((192,135,3),np.uint8)) ######
             for i in range(20-len(timecode_batch)):
-                im_list.append(np.zeros((135,192,3),np.uint8))
+                im_list.append(np.zeros((192,135,3),np.uint8))   #######
 
 
-            row1_pics = cv2.hconcat(im_list[:5])
-            row2_pics = cv2.hconcat(im_list[5:10])
-            row3_pics = cv2.hconcat(im_list[10:15])
-            row4_pics = cv2.hconcat(im_list[15:])
-            full_image_prev_images = cv2.vconcat((row1_pics, row2_pics,row3_pics,row4_pics))
+            # row1_pics = cv2.hconcat(im_list[:5])
+            # row2_pics = cv2.hconcat(im_list[5:10])
+            # row3_pics = cv2.hconcat(im_list[10:15])
+            # row4_pics = cv2.hconcat(im_list[15:])
+            col1_pics = cv2.vconcat(im_list[:4])
+            col2_pics = cv2.vconcat(im_list[4:8][::-1])
+            col3_pics = cv2.vconcat(im_list[8:12])
+            col4_pics = cv2.vconcat(im_list[12:16][::-1])
+            col5_pics = cv2.vconcat(im_list[16:][::-1])
+            full_image_prev_images = cv2.hconcat((col1_pics, col2_pics, col3_pics, col4_pics, col5_pics))
+            # full_image_prev_images = cv2.vconcat((row1_pics, row2_pics,row3_pics,row4_pics))
         else:
             full_image_prev_images = im1.copy()
+            full_image_prev_images = cv2.resize(full_image_prev_images, (new_shape1[1], new_shape1[0]),
+                                          interpolation=cv2.INTER_CUBIC)  #####
     except Exception as e:
         print("Error with Previous Images: ",e)
         full_image_prev_images = im1.copy()
+        full_image_prev_images = cv2.resize(full_image_prev_images, (new_shape1[1], new_shape1[0]),
+                                      interpolation=cv2.INTER_CUBIC)  #####
 
     ###### Raster Sequence Placeholder
     # Necessary inputs: current ee location
     try:
         if ee_loc != None:
             #test_rasterlocation = (100,200)
-            locs_ = [(135,685),(135,480),(135,280),(135,80),(365,80),(365,280),(365,480),(365,685),(565,775),(565,575),(565,375),(565,175),(765,80),(765,280),(765,480),(765,685),(960,175),(960,375),(960,575),(100000,100000)]
+            locs_ = [(150,670),(150,460),(150,260),(150,60),(360,70),(360,260),(360,470),(360,665),(565,770),(565,570),(565,375),(565,165),(770,70),(770,270),(770,475),(770,680),(970,175),(970,370),(970,575),(100000,100000)]
 
             plug_x = [loc[0] for loc in locs_]
             plug_y = [loc[1] for loc in locs_]
 
             fig = plt.figure(1)
-            plt.scatter(plug_x, plug_y)
-            plt.scatter(ee_loc[0],ee_loc[1])
+            plt.scatter(plug_x, plug_y, label="Plants", color='green', s=300)
+            plt.scatter(ee_loc[0],ee_loc[1], label='Robot', color='red')
             plt.xlim(-50,1250)
             plt.ylim(-50,850)
-            plt.title('Raster Locating')
+            plt.title('Robot Location')
+            plt.legend()
             plt.xlabel('X')
             plt.xlabel('Y')
 
@@ -80,16 +117,17 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             fullimage_raster = np.array(fig.canvas.renderer.buffer_rgba())
             plt.clf()
             fullimage_raster = cv2.cvtColor(fullimage_raster, cv2.COLOR_BGR2RGB)
-            fullimage_raster = cv2.resize(fullimage_raster, (natural_shape[1], natural_shape[0]),interpolation = cv2.INTER_CUBIC)
         else:
             fullimage_raster = im2.copy()
     except:
         print("Error with Raster")
         fullimage_raster = im2.copy()
+    fullimage_raster = cv2.resize(fullimage_raster, (new_shape2[1], new_shape2[0]),interpolation=cv2.INTER_CUBIC)  #####
 
     ###### Go Pro
     
     fullimage_gopro = im3.copy()
+    fullimage_gopro = cv2.resize(fullimage_gopro, (new_shape4[1], new_shape4[0]), interpolation=cv2.INTER_CUBIC)
 
     ###### Time Series Placeholder
     # Necessary inputs: current date
@@ -158,14 +196,18 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             full_image_env = im4.copy()
     except Exception as error:
         print("Error with Environmental Charts", error)
+        idxs = None
         full_image_env = im4.copy()
-
+    full_image_env = cv2.resize(full_image_env, (new_shape3[1], new_shape3[0]), interpolation=cv2.INTER_CUBIC)  ########
 
     ###### Final Concatenation
 
-    row1 = cv2.hconcat((full_image_prev_images, fullimage_raster))
-    row2 = cv2.hconcat((fullimage_gopro, full_image_env))
-    full_image = cv2.vconcat((row1, row2))
+    # row1 = cv2.hconcat((full_image_prev_images, fullimage_raster))
+    # row2 = cv2.hconcat((fullimage_gopro, full_image_env))
+    col1 = cv2.vconcat((full_image_prev_images, fullimage_raster))
+    col2 = cv2.vconcat((fullimage_gopro, full_image_env))
+    # full_image = cv2.vconcat((row1, row2))
+    full_image = cv2.hconcat((col1, col2))
     full_image = cv2.resize(full_image, (1860,1020),interpolation = cv2.INTER_CUBIC)
     return full_image, idxs
 
