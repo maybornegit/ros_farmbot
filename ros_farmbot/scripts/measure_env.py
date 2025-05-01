@@ -1,5 +1,6 @@
-import subprocess, time
+import subprocess, time, os
 
+my_dir = os.path.expanduser("~/ros_farmbot_data")
 try:
     with open(my_dir+'/config.txt') as f:
         lines = [line for line in f]

@@ -276,7 +276,7 @@ def main():
 
                     single_meas = float(par_sensor.get_micromoles())
                     sensor_loc = (860, 175)
-                    filename_ = '/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt'
+                    filename_ = my_dir+'/par_sampled_grid.txt'
                     sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//3]], filename_)
                     light = sample_par[0][2]
 
@@ -331,7 +331,7 @@ def main():
                     m, _ = measure_env()
                     single_meas = float(par_sensor.get_micromoles())
                     sensor_loc = (860, 175)
-                    filename_ = '/home/frc-ag-2/ros_farmbot_data/par_sampled_grid.txt'
+                    filename_ = my_dir+'/par_sampled_grid.txt'
                     est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], filename_)
                     if len(m) != 0 and rclpy.ok():
                         writer.writerow(m[0:5])
