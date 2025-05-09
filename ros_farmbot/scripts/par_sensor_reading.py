@@ -167,9 +167,9 @@ if  __name__ == '__main__':
     test_sensor = Quantum()
     while True:
         time.sleep(1)
-        single_meas = 359
-        single_loc = (885, 175)
-        coords = [(585, -50), (980, 775), (980, -50), (1185, -50),(1185,775)]
-        est_par = run_grid_approx(single_meas, single_loc, coords, grid_file)
-        print(est_par)
+        single_meas = float(par_sensor.get_micromoles())
+        #single_loc = (885, 175)
+        #coords = [(585, -50), (980, 775), (980, -50), (1185, -50),(1185,775)]
+        #est_par = run_grid_approx(single_meas, single_loc, coords, grid_file)
+        print(single_meas)
     

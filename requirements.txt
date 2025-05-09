@@ -1,1 +1,10 @@
 farmbot==1.1.0
+aranet4
+pyrealsense2
+scikit-learn
+tqdm
+pySerial
+pandas==1.3.5
+numpy==1.26.4
+torch==2.3.1
+torchvision==0.18.1
