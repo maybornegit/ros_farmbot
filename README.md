@@ -20,9 +20,21 @@ This is the foundation for the ROS package used to operate and automate the I2GR
 
 ## 2. 🛠️ Installation
 
-1. Ensure that the equipment above is utilized, or some parts of the package may throw errors. (If you are not using Ubuntu 22.04, any ROS2 distribution should work, although they are untested.)
+1. Ensure that the equipment above is utilized, or some parts of the package may throw errors.)
 
-2. For the installation of software requirements - 
+2. Make sure you are using Ubuntu 22.04 (other Ubuntu versions have different ROS2 packages which are untested). Check your version with:
+
+```
+lsb_release -a
+```
+
+To upgrade to 22.04, run this line until you reach 22.04:
+
+```
+sudo do-release-upgrade
+```
+
+3. For the installation of software requirements - 
 - First, install the necessary ROS2 distribution (examples given will be based on Humble distribution, but change the 'humble' in the source commands to your chosen distribution) and build a ROS workspace for necessary packages.
 - [ROS2 Installation Instructions](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
