@@ -29,7 +29,7 @@ if not os.path.exists(my_dir+sensor):
       csv_writer = csv.writer(file)
       csv_writer.writerow(['Timestamp','Temperature [in degrees C]','Relative Humidity [%]','CO2 [in ppm]','Pressure [in hPa]'])
 if not os.path.exists(my_dir+wgt_timeline):
-   with open(my_dir+sensor, 'w') as file:
+   with open(my_dir+wgt_timeline, 'w') as file:
       csv_writer = csv.writer(file)
       csv_writer.writerow(['Mass History'])
 
