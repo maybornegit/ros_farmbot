@@ -199,7 +199,6 @@ def default_par_meas(filename):
 
     est_par = []
     for coordinate in zip(x_, y_, z_):
-        print(coordinate)
         est_par.append(list(coordinate))
     return est_par
 

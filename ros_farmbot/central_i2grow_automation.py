@@ -274,14 +274,18 @@ def main():
                         traj[1].append(m[1])
                         traj[0].append(8+int((m[0]-prev_masses[0][0]).total_seconds()/3600)/24)
 
-                    single_meas = float(par_sensor.get_micromoles())
-                    sensor_loc = (860, 175)
-                    filename_ = my_dir+'/par_sampled_grid.txt'
-                    sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//3]], filename_)
-                    light = sample_par[0][2]
+                    filename_ = my_dir + '/par_sampled_grid.txt'
+                    if par_sensor.get_sensor_status():
+                        single_meas = float(par_sensor.get_micromoles())
+                        sensor_loc = (860, 175)
+                        sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//3]], filename_)
+                        light = sample_par[0][2]
+                    else:
+                        est_par = default_par_meas(par_filename_)
+                        light = est_par[current_loc//3][2]
 
-                    mass_predictions = projected_mass(traj, light, [0,1,3,7,10], params = [2.34e-7,22.4,0.5])
-                    node_rgb.get_logger().info('Mass Prediction for 7 days: '+str(mass_predictions[-2]))
+                    mass_predictions = projected_mass(traj, light, [1,2,4,7,10], params = [2.34e-7,22.4,0.5])
+                    node_rgb.get_logger().info('Mass Prediction for 4 days: '+str(mass_predictions[2]))
 
                     estmasses[current_loc//3] = mass_predictions[-2]
                     with open(my_dir+est_mass, mode='w') as f:
@@ -350,7 +354,7 @@ def main():
                         msg_env.temp = float(m[1])
                         msg_env.rh = float(m[2])
                         par_msg = Float64MultiArray()
-                        par_msg.data = [x[2] for x in est_par]
+                        par_msg.data = [float(x[2]) for x in est_par]
                         msg_env.par = par_msg
                         msg_env.header.stamp = node_env.get_clock().now().to_msg()
 
