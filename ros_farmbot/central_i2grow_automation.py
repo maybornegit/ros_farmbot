@@ -329,10 +329,13 @@ def main():
                 writer = csv.writer(file)
                 try:
                     m, _ = measure_env()
-                    single_meas = float(par_sensor.get_micromoles())
-                    sensor_loc = (860, 175)
-                    filename_ = my_dir+'/par_sampled_grid.txt'
-                    est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], filename_)
+                    par_filename_ = my_dir + '/par_sampled_grid.txt'
+                    if par_sensor.get_sensor_status():
+                        single_meas = float(par_sensor.get_micromoles())
+                        sensor_loc = (860, 175)
+                        est_par = run_grid_approx(single_meas, sensor_loc, locs_[:-1], par_filename_)
+                    else:
+                        est_par = default_par_meas(par_filename_)
                     if len(m) != 0 and rclpy.ok():
                         writer.writerow(m[0:5])
                         print('MEASUREMENT TAKEN')

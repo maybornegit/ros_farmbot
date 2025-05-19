@@ -37,7 +37,11 @@ class Quantum:
             if 'SQ-420' in str(p):
                 port = str(p).replace(' - SQ-420 - SQ-420', '')
         # port = "/dev/ttyACM0" # you'll have to check your device manager and put the actual com port here
-        self.quantum = Serial(port, 115200, timeout=0.5)
+        try:
+            self.quantum = Serial(port, 115200, timeout=0.5)
+        except:
+            print("No device connected")
+            return None
         try:
             self.quantum.write(READ_CALIBRATION)
             multiplier = self.quantum.read(5)[1:]
@@ -50,6 +54,7 @@ class Quantum:
 
     def get_micromoles(self):
         """This function converts the voltage to micromoles"""
+        print('Connection:', self.get_sensor_status())
         voltage = self.read_voltage()
         if voltage == 9999:
             # you could raise some sort of Exception here if you wanted to
@@ -102,6 +107,9 @@ class Quantum:
             return sum(response_list) / len(response_list)
 
         return 0.0
+
+    def get_sensor_status(self):
+        return not (self.quantum==None)
 
 def run_grid_approx(single_meas,single_loc, coords, filename):
     # Sample Data
@@ -159,7 +167,42 @@ def run_grid_approx(single_meas,single_loc, coords, filename):
         zi = float(rbf(xi, yi))
         est_par.append((xi, yi, zi))
     return est_par
-    
+
+def default_par_meas(filename):
+    x_ = []
+    y_ = []
+    z_ = []
+    file = open(filename, "r")
+    while True:
+        content = file.readline()
+        if not content:
+            break
+
+        count = 0
+        working_txt = ''
+        for i in range(len(content)):
+            if content[i] in ['(', ' ']:
+                pass
+            elif content[i] in [',', ')']:
+                if count == 0:
+                    x_.append(int(working_txt))
+                if count == 1:
+                    y_.append(int(working_txt))
+                if count == 2:
+                    z_.append(int(working_txt))
+                    break
+                count += 1
+                working_txt = ''
+            else:
+                working_txt += content[i]
+    file.close()
+
+    est_par = []
+    for coordinate in zip(x_, y_, z_):
+        print(coordinate)
+        est_par.append(list(coordinate))
+    return est_par
+
 if  __name__ == '__main__':
     ### Change port depending on Linux port
     my_dir = os.path.expanduser("~/ros_farmbot_data")
@@ -167,7 +210,7 @@ if  __name__ == '__main__':
     test_sensor = Quantum()
     while True:
         time.sleep(1)
-        single_meas = float(par_sensor.get_micromoles())
+        single_meas = float(test_sensor.get_micromoles())
         #single_loc = (885, 175)
         #coords = [(585, -50), (980, 775), (980, -50), (1185, -50),(1185,775)]
         #est_par = run_grid_approx(single_meas, single_loc, coords, grid_file)

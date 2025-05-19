@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="df358f1f-3231-4509-8be4-8fb715b83bcb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../launch/basic.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../launch/basic.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../package.xml" afterDir="false" />
+    <list default="true" id="df358f1f-3231-4509-8be4-8fb715b83bcb" name="Changes" comment="optional lighting 2025-0519">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/central_i2grow_automation.py" beforeDir="false" afterPath="$PROJECT_DIR$/central_i2grow_automation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/par_sensor_reading.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/par_sensor_reading.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ui_printing.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ui_printing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webcam_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/webcam_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +18,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2wVLIlgxok5INZoOV3LlVwNRil8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -29,7 +30,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/frc-ag-2/ros2_ws/src/ros_farmbot"
+    "last_opened_file_path": "/home/frc-ag-2/ros2_ws/src/ros_farmbot/ros_farmbot"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -49,5 +50,9 @@
       <updated>1746121716648</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="optional lighting 2025-0519" />
+    <option name="LAST_COMMIT_MESSAGE" value="optional lighting 2025-0519" />
   </component>
 </project>
