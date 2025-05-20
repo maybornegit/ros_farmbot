@@ -155,8 +155,8 @@ def main():
     locs = []
     for loc in locs_:
         locs.append((loc[0],loc[1]))
-        locs.append((loc[0]+delta_camera_seq,loc[1]))
-        locs.append((loc[0]-delta_camera_seq,loc[1]))
+        # locs.append((loc[0]+delta_camera_seq,loc[1]))
+        # locs.append((loc[0]-delta_camera_seq,loc[1]))
 
     # netwgts_file = "/home/frc-ag-2/Downloads/old_cnn_results/2025_0203_test-1-effnet-c.pt"
     net = load_net(netwgts_file)
@@ -166,6 +166,7 @@ def main():
     kill = False
     iter_ = 0
     current_loc = 0
+    locs_per_plant = 1
     
     wgttime = datetime.now()
     wgttime = wgttime.strftime("%Y-%m-%d %H")
@@ -244,7 +245,7 @@ def main():
             time_image = time.time()
             timestamp, color_image, depth_image = pull_depth_image(current_loc)
 
-            if current_loc % 3 == 0:
+            if current_loc % locs_per_plant == 0:
                 date = datetime.today().strftime("%Y-%m-%d")
 
                 pathloc = my_dir+rgbd_loc+'/rgbd-image-'+ date + '-' + timestamp +'_'+str(current_loc)+ '.npy'
@@ -256,7 +257,7 @@ def main():
 
                 ### Mass Prediction
                 try:
-                    idx = current_loc // 3
+                    idx = current_loc // locs_per_plant
                     with open(my_dir+wgt_timeline, mode='r') as f:
                         reader = csv.reader(f)
                         read_list = list(reader)[1:]
@@ -278,16 +279,16 @@ def main():
                     if par_sensor.get_sensor_status():
                         single_meas = float(par_sensor.get_micromoles())
                         sensor_loc = (860, 175)
-                        sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//3]], filename_)
+                        sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//locs_per_plant]], filename_)
                         light = sample_par[0][2]
                     else:
                         est_par = default_par_meas(par_filename_)
-                        light = est_par[current_loc//3][2]
+                        light = est_par[current_loc//locs_per_plant][2]
 
                     mass_predictions = projected_mass(traj, light, [1,2,4,7,10], params = [2.34e-7,22.4,0.5])
                     node_rgb.get_logger().info('Mass Prediction for 4 days: '+str(mass_predictions[2]))
 
-                    estmasses[current_loc//3] = mass_predictions[-2]
+                    estmasses[current_loc//locs_per_plant] = mass_predictions[-2]
                     with open(my_dir+est_mass, mode='w') as f:
                         writer = csv.writer(f)
                         writer.writerow(estmasses)
@@ -321,7 +322,7 @@ def main():
                 print('IMAGE TAKEN')
             else:
                 print('IMAGE ERROR')
-            if current_loc % 3 == 0:
+            if current_loc % locs_per_plant == 0:
                 timeimages_batch.append(timestamp)
 
             if time.time() - time_ui > 10 and position != '':

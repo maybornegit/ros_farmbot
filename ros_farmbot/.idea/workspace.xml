@@ -7,7 +7,6 @@
     <list default="true" id="df358f1f-3231-4509-8be4-8fb715b83bcb" name="Changes" comment="optional lighting 2025-0519">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/central_i2grow_automation.py" beforeDir="false" afterPath="$PROJECT_DIR$/central_i2grow_automation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/par_sensor_reading.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/par_sensor_reading.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
