@@ -64,6 +64,8 @@ def read_ui_updates():
 def display_update(time_ui, csv_timecodes,fullimage,override=False):
 	if time.time() - time_ui > 10 or override:
 		timeimages_batch, position, previmage_batch, iter_ = read_ui_updates()
+
+		print(csv_timecodes)
 		
 		if dt.datetime.now().hour < 10:
 			date = dt.datetime.today()-dt.timedelta(days=1)

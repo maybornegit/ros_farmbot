@@ -44,8 +44,6 @@ except:
     print("Need to update config.txt file")
     raise NotImplementedError
 
-
-
 from farmbot import Farmbot
 import threading
 import datetime as dt
@@ -275,11 +273,11 @@ def main():
                         traj[1].append(m[1])
                         traj[0].append(8+int((m[0]-prev_masses[0][0]).total_seconds()/3600)/24)
 
-                    filename_ = my_dir + '/par_sampled_grid.txt'
+                    par_filename_ = my_dir + '/par_sampled_grid.txt'
                     if par_sensor.get_sensor_status():
                         single_meas = float(par_sensor.get_micromoles())
                         sensor_loc = (860, 175)
-                        sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//locs_per_plant]], filename_)
+                        sample_par = run_grid_approx(single_meas, sensor_loc, [locs_[current_loc//locs_per_plant]], par_filename_)
                         light = sample_par[0][2]
                     else:
                         est_par = default_par_meas(par_filename_)

@@ -52,9 +52,10 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             test_date = date.strftime("%Y-%m-%d")
 
             im_list = []
+            locs_per_plant = 1
             for i in range(len(timecode_batch)):
                 if timecode_batch[i] != None and timecode_batch[i] != '':
-                    pathloc = my_dir+rgbd_loc+'/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*3)+ '.npy'
+                    pathloc = my_dir+rgbd_loc+'/rgbd-image-'+ test_date + '-' + timecode_batch[i] +'_'+str(i*locs_per_plant)+ '.npy'
                     rgbd = prep_image(pathloc)
                     wgt = get_wgt_estimate(net, rgbd)
                     if wgt < 1.0:
