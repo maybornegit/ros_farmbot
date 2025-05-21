@@ -1,0 +1,5 @@
+<launch>
+        <node pkg="ros_farmbot" exec="init" name="init" namespace="farmbot" output="screen"/>
+        <node pkg="ros_farmbot" exec="ui" name="ui" namespace="farmbot" output="screen"/>
+        <executable cmd="ros2 bag record /rgbd/color /rgbd/depth /env/aranet /position" output="screen" />
+</launch>

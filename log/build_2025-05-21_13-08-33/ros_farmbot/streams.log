@@ -1,0 +1,26 @@
+[0.623s] Invoking command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot': PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data
+[0.864s] running egg_info
+[0.865s] writing build/ros_farmbot/ros_farmbot.egg-info/PKG-INFO
+[0.865s] writing dependency_links to build/ros_farmbot/ros_farmbot.egg-info/dependency_links.txt
+[0.865s] writing entry points to build/ros_farmbot/ros_farmbot.egg-info/entry_points.txt
+[0.865s] writing requirements to build/ros_farmbot/ros_farmbot.egg-info/requires.txt
+[0.865s] writing top-level names to build/ros_farmbot/ros_farmbot.egg-info/top_level.txt
+[0.877s] reading manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+[0.879s] writing manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+[0.880s] running build
+[0.880s] running build_py
+[0.881s] copying ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+[0.882s] running install
+[0.882s] running install_lib
+[0.884s] copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+[0.885s] byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/ui_printing.py to ui_printing.cpython-310.pyc
+[0.889s] running install_data
+[0.889s] running install_egg_info
+[0.891s] removing '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot-0.0.0-py3.10.egg-info' (and everything under it)
+[0.891s] Copying build/ros_farmbot/ros_farmbot.egg-info to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot-0.0.0-py3.10.egg-info
+[0.892s] running install_scripts
+[0.912s] Installing init script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.912s] Installing listen script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.912s] Installing ui script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+[0.912s] writing list of installed files to '/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log'
+[0.930s] Invoked command in '/home/frc-ag-2/ros2_ws/src/ros_farmbot' returned '0': PYTHONPATH=/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/ros_farmbot build --build-base /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build install --record /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log --single-version-externally-managed install_data

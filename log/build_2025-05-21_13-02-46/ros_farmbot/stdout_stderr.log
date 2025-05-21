@@ -1,0 +1,61 @@
+running egg_info
+writing build/ros_farmbot/ros_farmbot.egg-info/PKG-INFO
+writing dependency_links to build/ros_farmbot/ros_farmbot.egg-info/dependency_links.txt
+writing entry points to build/ros_farmbot/ros_farmbot.egg-info/entry_points.txt
+writing requirements to build/ros_farmbot/ros_farmbot.egg-info/requires.txt
+writing top-level names to build/ros_farmbot/ros_farmbot.egg-info/top_level.txt
+reading manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+writing manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+running build
+running build_py
+copying ros_farmbot/webcam_test.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+copying ros_farmbot/central_i2grow_automation.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot
+copying ros_farmbot/scripts/image_functions.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/par_sensor_reading.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/prediction_helper.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/nicolet_model_helpers.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/opencv_rgbd_framegrab.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/cnn_models.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+copying ros_farmbot/scripts/measure_env.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts
+running install
+running install_lib
+creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot
+creating /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/image_functions.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/par_sensor_reading.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/prediction_helper.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/ui_printing.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/nicolet_model_helpers.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/opencv_rgbd_framegrab.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/cnn_models.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/scripts/measure_env.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/webcam_test.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/__init__.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/central_i2grow_automation.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot
+copying /home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/build/lib/ros_farmbot/data_listener.py -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/image_functions.py to image_functions.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/par_sensor_reading.py to par_sensor_reading.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/prediction_helper.py to prediction_helper.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/ui_printing.py to ui_printing.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/nicolet_model_helpers.py to nicolet_model_helpers.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/opencv_rgbd_framegrab.py to opencv_rgbd_framegrab.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/cnn_models.py to cnn_models.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/scripts/measure_env.py to measure_env.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/webcam_test.py to webcam_test.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/central_i2grow_automation.py to central_i2grow_automation.cpython-310.pyc
+byte-compiling /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot/data_listener.py to data_listener.cpython-310.pyc
+running install_data
+copying package.xml -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot
+copying launch/ros-record.launch -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/launch
+copying launch/basic.launch -> /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/share/ros_farmbot/launch
+running install_egg_info
+Copying build/ros_farmbot/ros_farmbot.egg-info to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot-0.0.0-py3.10.egg-info
+running install_scripts
+Installing init script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+Installing listen script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+Installing ui script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+writing list of installed files to '/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log'

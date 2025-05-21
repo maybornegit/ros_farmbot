@@ -44,6 +44,13 @@ except:
     print("Need to update config.txt file")
     raise NotImplementedError
 
+try:
+    with open(my_dir+'/coords.txt') as f:
+        coords = [line for line in f]
+except:
+    print("Need to update coords.txt file")
+    raise NotImplementedError
+
 from farmbot import Farmbot
 import threading
 import datetime as dt
@@ -149,7 +156,13 @@ def main():
     # Setting up locations of interest
     position = (0,0,0)
     delta_camera_seq = 20
-    locs_ = [(150,670),(150,460),(150,260),(150,60),(360,70),(360,260),(360,470),(360,665),(565,770),(565,570),(565,375),(565,165),(770,70),(770,270),(770,475),(770,680),(970,175),(970,370),(970,575),(100000,100000)]
+    locs_ = []
+    for c in coords:
+        c_edit = c.replace('(', '').replace(')', '').replace('\n', '')
+        c_edit = c_edit.split(',')
+        locs_.append((int(c_edit[0]), int(c_edit[1])))
+    locs_.append((100000, 100000))
+    # locs_ = [(150,670),(150,460),(150,260),(150,60),(360,70),(360,260),(360,470),(360,665),(565,770),(565,570),(565,375),(565,165),(770,70),(770,270),(770,475),(770,680),(970,175),(970,370),(970,575),(100000,100000)]
     locs = []
     for loc in locs_:
         locs.append((loc[0],loc[1]))

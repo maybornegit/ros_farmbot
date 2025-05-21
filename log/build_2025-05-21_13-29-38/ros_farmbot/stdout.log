@@ -1,0 +1,21 @@
+running egg_info
+writing build/ros_farmbot/ros_farmbot.egg-info/PKG-INFO
+writing dependency_links to build/ros_farmbot/ros_farmbot.egg-info/dependency_links.txt
+writing entry points to build/ros_farmbot/ros_farmbot.egg-info/entry_points.txt
+writing requirements to build/ros_farmbot/ros_farmbot.egg-info/requires.txt
+writing top-level names to build/ros_farmbot/ros_farmbot.egg-info/top_level.txt
+reading manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+writing manifest file 'build/ros_farmbot/ros_farmbot.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot-0.0.0-py3.10.egg-info' (and everything under it)
+Copying build/ros_farmbot/ros_farmbot.egg-info to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/python3.10/site-packages/ros_farmbot-0.0.0-py3.10.egg-info
+running install_scripts
+Installing init script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+Installing listen script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+Installing ui script to /home/frc-ag-2/ros2_ws/src/ros_farmbot/install/ros_farmbot/lib/ros_farmbot
+writing list of installed files to '/home/frc-ag-2/ros2_ws/src/ros_farmbot/build/ros_farmbot/install.log'

@@ -21,6 +21,21 @@ except:
     print("Need to update config.txt file")
     raise NotImplementedError
 
+try:
+    with open(my_dir+'/ui_order.txt') as f:
+        order_lines = [line for line in f]
+    default_order = False
+except:
+    default_order = True
+    print("Need to update ui_order.txt file - default order")
+
+try:
+    with open(my_dir+'/coords.txt') as f:
+        coords = [line for line in f]
+except:
+    print("Need to update coords.txt file")
+    raise NotImplementedError
+
 # netwgts_file = "/home/frc-ag-2/Downloads/old_cnn_results/2025_0203_test-1-effnet-c.pt"
 net = load_net(netwgts_file)
 net.eval()
@@ -47,7 +62,7 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
     # Each image is 135 x 192 in a 5x4 grid
     # Necessary inputs: timecodes of prev batch and current date
     try:
-        if timecode_batch != None and date != None:
+        if timecode_batch != None and date != None and default_order:
             #test_timecodes = ['10:48:29','10:48:38','10:48:46','10:48:55','10:49:02','10:49:10','10:49:19','10:49:28','10:49:36','10:49:45','10:49:54','10:50:00','10:50:09','10:50:17','10:50:26','10:50:46','10:50:54','10:51:03','10:51:12']
             test_date = date.strftime("%Y-%m-%d")
 
@@ -84,10 +99,37 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
             col5_pics = cv2.vconcat(im_list[16:][::-1])
             full_image_prev_images = cv2.hconcat((col1_pics, col2_pics, col3_pics, col4_pics, col5_pics))
             # full_image_prev_images = cv2.vconcat((row1_pics, row2_pics,row3_pics,row4_pics))
+        elif timecode_batch != None and date != None and not default_order:
+            grid_dims = order_lines[0].replace('(', '').replace(')', '').replace('\n', '')
+            grid_dims = grid_dims.split(',')
+            image_sizes = (new_shape1[0]//int(grid_dims[0]), new_shape1[1]//int(grid_dims[1]))
+            im_list = [[np.zeros((image_sizes[0],image_sizes[1],3),np.uint8) for __ in range(int(grid_dims[0]))] for _ in range(int(grid_dims[1]))]
+
+            locs_per_plant = 1
+            test_date = date.strftime("%Y-%m-%d")
+            for i in range(len(timecode_batch)):
+                if timecode_batch[i] != None and timecode_batch[i] != '':
+                    pathloc = my_dir + rgbd_loc + '/rgbd-image-' + test_date + '-' + timecode_batch[i] + '_' + str(
+                        i * locs_per_plant) + '.npy'
+                    rgbd = prep_image(pathloc)
+                    wgt = get_wgt_estimate(net, rgbd)
+                    if wgt < 1.0:
+                        wgt = 0.0
+
+                    picture_npy = np.load(pathloc)[:, :, :3].astype(np.uint8)
+                    im = cv2.cvtColor(picture_npy, cv2.COLOR_BGR2RGB)
+                    im = cv2.rotate(im, cv2.ROTATE_90_COUNTERCLOCKWISE)  ######
+                    im = labelled_image(im, wgt, i)
+                    im = cv2.resize(im, (image_sizes[1],image_sizes[0]), interpolation=cv2.INTER_CUBIC)  ######
+
+                    idx = order_lines[2+i].replace('(', '').replace(')', '').replace('\n', '')
+                    idx = idx.split(',')
+                    im_list[int(idx[1])-1][int(idx[0])-1] = im
+            col_pics = [cv2.vconcat(im_list[i][::-1]) for i in range(len(im_list))]
+            full_image_prev_images = cv2.hconcat(col_pics)
         else:
             full_image_prev_images = im1.copy()
-            full_image_prev_images = cv2.resize(full_image_prev_images, (new_shape1[1], new_shape1[0]),
-                                          interpolation=cv2.INTER_CUBIC)  #####
+        full_image_prev_images = cv2.resize(full_image_prev_images, (new_shape1[1], new_shape1[0]),interpolation=cv2.INTER_CUBIC)  #####
     except Exception as e:
         print("Error with Previous Images: ",e)
         full_image_prev_images = im1.copy()
@@ -99,7 +141,13 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
     try:
         if ee_loc != None:
             #test_rasterlocation = (100,200)
-            locs_ = [(150,670),(150,460),(150,260),(150,60),(360,70),(360,260),(360,470),(360,665),(565,770),(565,570),(565,375),(565,165),(770,70),(770,270),(770,475),(770,680),(970,175),(970,370),(970,575),(100000,100000)]
+            locs_ = []
+            for c in coords:
+                c_edit = c.replace('(', '').replace(')','').replace('\n','')
+                c_edit = c_edit.split(',')
+                locs_.append((int(c_edit[0]), int(c_edit[1])))
+            locs_.append((100000, 100000))
+            # locs_ = [(150,670),(150,460),(150,260),(150,60),(360,70),(360,260),(360,470),(360,665),(565,770),(565,570),(565,375),(565,165),(770,70),(770,270),(770,475),(770,680),(970,175),(970,370),(970,575),(100000,100000)]
 
             plug_x = [loc[0] for loc in locs_]
             plug_y = [loc[1] for loc in locs_]
@@ -205,6 +253,7 @@ def ui_output(timecode_batch=None, date=None, ee_loc=None, csv_indxs=None):
 
     # row1 = cv2.hconcat((full_image_prev_images, fullimage_raster))
     # row2 = cv2.hconcat((fullimage_gopro, full_image_env))
+    print(full_image_prev_images.shape, fullimage_raster.shape)
     col1 = cv2.vconcat((full_image_prev_images, fullimage_raster))
     col2 = cv2.vconcat((fullimage_gopro, full_image_env))
     # full_image = cv2.vconcat((row1, row2))
